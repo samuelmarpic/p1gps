@@ -1,0 +1,46 @@
+version: "3"
+services:
+  mongo:
+    image: samuelmarpic/p1gps:db
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.15"
+          memory: 200M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "28017:28017"  
+      - "27017:27017"
+    volumes:
+      - "db-data:/data/db"
+  order:
+    image: samuelmarpic/p1gps:order
+    depends_on:
+      - "mongo"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.2"
+          memory: 300M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8080:8080"
+  web:
+    image: samuelmarpic/p1gps:web
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 300M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "80:8080"  
+  
+volumes: 
+   db-data:
