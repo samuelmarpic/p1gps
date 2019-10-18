@@ -1,4 +1,4 @@
-FROM mongo:3.4
+FROM mongo
 
 MAINTAINER samuelmarpic@gmail.com
 
@@ -6,4 +6,4 @@ MAINTAINER samuelmarpic@gmail.com
 COPY drop/* usr/local/data/db/
 
 
-CMD ["mongod", "--smallfiles", "--rest"]
+CMD ["mongod", "—smallfiles”, “—rest”]
